@@ -1,74 +1,100 @@
 <!DOCTYPE html>
-<html lang="ru">
- <head>
-	<meta charset="UTF-8">
-	<meta name="format-detection" content="telephone=no">
-	 
-	<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+<html lang="<?= function_exists( 'pll_current_language' ) ? (pll_current_language() === 'uk' ? 'ua' : pll_current_language()) : 'en' ; ?>">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.min.css" />
+    <link rel="shortcut icon" href="<?= get_template_directory_uri(  ); ?>/assets/img/icons/favicon.svg" type="image/x-icon" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php
+      wp_head();
+    ?>
+  </head>
+  <body>
+    <div id="cursor" data-video="Play" data-slider="Drag"></div>
 
-  <?php
-    wp_head();
-  ?>
-</head>
-<body class="<?= (is_front_page(  ) && !is_home(  )) ? 'loading' : ''; ?>">
+    <?php 
+      get_template_part( 'templates/preloader' );
 
-<div class="wrapper">
-    <header class="header">
-			<div class="header__container _container">
-				<div class="header__body ">
+      get_template_part( 'templates/front/marquee', 'images' );
+    ?>
 
-					<a href="<?= (is_front_page(  ) && !is_home(  )) ? 'https://webnauts.pro' : get_bloginfo( 'url' ); ?>">
-						<div class="header__icon a ">
-							<div class="header__icon_logo">
-								<img src="<?= get_custom_logo_url(  ); ?>" alt="<?= get_bloginfo( 'name' ); ?>">
-							</div>
-						</div>
-					</a>
-					<div class="header__menu menu__body <?= is_singular( 'cases' ) ? 'header__menu--cases' : ''; ?>">
-						<div class="header__language a">
-							<?php
-                $translations = pll_the_languages(array('raw'=>1));
-								foreach ($translations as $key => $translation) {
-									?>
-                    <div class="border_bottom <?= $translation['current_lang'] ? '_active' : ''; ?>">
-                      <div class=" header_input_3d">
-                        <a href="<?= $translation['url']; ?>">
-                          <div class="label">
-                            <?= ($translation['slug'] === 'ru') ? 'рус' : (($translation['slug'] === 'uk') ? 'укр' : $translation['slug']) ; ?>
-                          </div>
-                        </a>
-                      </div>
-							      </div>
-									<?php
-								}
-							?>
+    
 
-							<div class="header__language_circle circle_20 a " >
-								<div class="" id="circle_20" ></div>
-							</div>
-						</div>
-						
-						<?php
-              $theme_location = (is_front_page(  ) && !is_home(  ) ) ? 'top_menu' : 'top_menu_inner';
+    <div class="wrapper" data-scroll-container>
 
-							wp_nav_menu(
-								array(
-									'theme_location'  => $theme_location,
-									'container'       => null,
-									'menu_class'      => 'header__sidebar',
-									'depth'           => 0,
-								)
-							);	
-						?>
-					</div>
-					<button type="button" class="icon-menu">
-						<span></span>
-						<span></span>
-						<span></span>
-					</button>
-				</div>
+      <section class="hero" data-scroll-section>
+        <header class="header white">
+          <div class="header__inner">
+            <?php 
+              get_template_part( 'templates/logo' );
+            ?> 
 
-			</div>
-		</header>
+            <div class="header__right">
+              <?php 
+                get_template_part( 'templates/language' );
+
+                get_template_part( 'templates/menu', 'header' );
+              ?>
+            </div>
+            <button class="header__hamburger hamburger">
+              <span class="line"></span>
+              <span class="line"></span>
+              <span class="line"></span>
+            </button>
+          </div>
+        </header>
+        <div class="hero__center">
+          <a href="#feedback" class="hero__btn a_white">
+            <p>Contact <br />us</p>
+            <div class="hero__icon">
+              <svg width="30" height="30">
+                <use xlink:href="<?= get_template_directory_uri(  ); ?>/assets/img/sprite.svg#letter"></use>
+              </svg>
+            </div>
+          </a>
+          <div class="hero__text">
+            <p>
+              Smart Design <br />
+              For your business
+            </p>
+          </div>
+        </div>
+        <div class="hero__container">
+          <div
+            class="hero__image"
+            data-scroll
+            data-scroll-speed="-3"
+            data-scroll-position="top"
+          >
+            <img src="<?= get_template_directory_uri(  ); ?>/assets/img/hero/iPhone_13.png" alt="" />
+          </div>
+        </div>
+        <div class="hero__container circle">
+          <div
+            class="hero__image"
+            data-scroll
+            data-scroll-speed="5"
+            data-scroll-position="top"
+          >
+            <div class="hero__circle"></div>
+          </div>
+        </div>
+
+        <div class="hero__bottom">
+          <div
+            class="hero__wrap"
+            data-scroll
+            data-scroll-direction="horizontal"
+            data-scroll-speed="4"
+            data-scroll-position="top"
+          >
+            <div class="hero__wrap">
+              <h1 class="hero__profession">
+                Webnauts design <span class="hero__spacer">—</span>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </section>

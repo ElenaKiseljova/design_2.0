@@ -7,4 +7,17 @@
     Text Domain: design
 */
 
-@import 'assets/css/style.min.css'
+@import 'assets/css/style.min.css';
+
+.lang__item--ukr {
+  order: 0;
+}
+
+.lang__item--ru {
+  order: 1;
+}
+
+.lang__item--eng {
+  order: 2;
+}
+

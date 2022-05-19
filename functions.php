@@ -12,17 +12,33 @@
 
   // Scripts theme
   function design_scripts () {
-    wp_enqueue_script('three-script', get_template_directory_uri() . '/assets/js/three.min.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('TweenMax-script', get_template_directory_uri() . '/assets/js/TweenMax.min.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('imagesloaded.pkgd-script', get_template_directory_uri() . '/assets/js/imagesloaded.pkgd.min.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('gsap-script', get_template_directory_uri() . '/assets/js/libs/gsap/gsap.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('scroll-trigger-script', get_template_directory_uri() . '/assets/js/libs/gsap/scroll-trigger.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('three-script', get_template_directory_uri() . '/assets/js/libs/three/three.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('tween-max-script', get_template_directory_uri() . '/assets/js/libs/gsap/tween-max.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('hover-effect-script', get_template_directory_uri() . '/assets/js/libs/hover-effect/hover-effect.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('swiper-script', get_template_directory_uri() . '/assets/js/libs/swiper/swiper.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('locomotive-scroll-script', get_template_directory_uri() . '/assets/js/libs/locomotive-scroll/locomotive-scroll.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('disabled-scroll-script', get_template_directory_uri() . '/assets/js/libs/disabled-scroll/disabled-scroll.js', $deps = array(), $ver = null, $in_footer = true );
+
+    // <!-- Старт и отследживание скролла -->
+    wp_enqueue_script('smooth-scroll-start-script', get_template_directory_uri() . '/assets/js/smooth-scroll-start.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('preloader-script', get_template_directory_uri() . '/assets/js/preloader.js', $deps = array('jquery'), $ver = null, $in_footer = true );
+    wp_enqueue_script('animation-image-script', get_template_directory_uri() . '/assets/js/animation-image.js', $deps = array('jquery'), $ver = null, $in_footer = true );
+    wp_enqueue_script('magnetic-buttons-script', get_template_directory_uri() . '/assets/js/magnetic-buttons.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('hover-script', get_template_directory_uri() . '/assets/js/hover.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('swiper-script', get_template_directory_uri() . '/assets/js/swiper.min.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('vendors-script', get_template_directory_uri() . '/assets/js/vendors.min.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('app-script', get_template_directory_uri() . '/assets/js/app.min.js', $deps = array(), $ver = null, $in_footer = true );
-    
-    if (is_front_page(  ) && !is_home(  )) {
-      wp_enqueue_script('animate-hover-script', get_template_directory_uri() . '/assets/js/animate-hover.js', $deps = array('three-script', 'TweenMax-script', 'hover-script'), $ver = null, $in_footer = true ); 
-    }    
+    wp_enqueue_script('parallax-script', get_template_directory_uri() . '/assets/js/parallax.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('cursor-script', get_template_directory_uri() . '/assets/js/cursor.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('rolling-text-script', get_template_directory_uri() . '/assets/js/rolling-text.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('marquee-script', get_template_directory_uri() . '/assets/js/marquee.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('calculate-height-script', get_template_directory_uri() . '/assets/js/calculate-height.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('slider-script', get_template_directory_uri() . '/assets/js/slider.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('hamburger-script', get_template_directory_uri() . '/assets/js/hamburger.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('achors-script', get_template_directory_uri() . '/assets/js/achors.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('input-border-script', get_template_directory_uri() . '/assets/js/input-border.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('form_2.0-script', get_template_directory_uri() . '/assets/js/form_2.0.js', $deps = array(), $ver = null, $in_footer = true );
+
+    wp_enqueue_script('smooth-scroll-end-script', get_template_directory_uri() . '/assets/js/smooth-scroll-end.js', $deps = array(), $ver = null, $in_footer = true );
     
     // AJAX
     $args = array(
@@ -59,9 +75,6 @@
       =============================================== */
       register_nav_menu( 'top_menu', 'Навигация в шапке сайта' );
       register_nav_menu( 'bottom_menu', 'Навигация в подвале сайта' );
-
-      register_nav_menu( 'top_menu_inner', 'Навигация в шапке сайта (внутренние страницы)' );
-      register_nav_menu( 'bottom_menu_inner', 'Навигация в подвале сайта (внутренние страницы)' );
       
       
       /* ==============================================
@@ -237,39 +250,6 @@
       }
 
       return $taxonomies;
-  }
-
-  /* ==============================================
-  ********  //Класс для ссылок меню
-  =============================================== */
-  add_filter( 'walker_nav_menu_start_el', 'design_filter_link_nav_menu', 10, 4 );
-  function design_filter_link_nav_menu( $item_output, $item, $depth, $args ) {
-    // link attributes
-		$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-		$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-		$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';		
-    
-    $class_link = '';
-    if ($args->theme_location === 'top_menu' || $args->theme_location === 'bottom_menu') {
-      $attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-
-      $class = 'a';
-    } else if ($args->theme_location === 'top_menu_inner' || $args->theme_location === 'bottom_menu_inner') {
-      $attributes .= ! empty( $item->url )        ? ' href="'   . get_bloginfo( 'url' ) . '/' . esc_attr( $item->url        ) .'"' : '';
-
-      $class = 'a--inner';
-    }
-    
-    $attributes .= ' class="' . $class . '"';
-    
-    // create link html
-    $item_output = $args->before;
-    $item_output .= '<a'. $attributes .'>';
-    $item_output .= $args->link_before . $item->title . $args->link_after;
-    $item_output .= '</a>';
-    $item_output .= $args->after;
-
-  	return $item_output;
   }
 
   /* ==============================================
