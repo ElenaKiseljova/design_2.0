@@ -9,15 +9,22 @@
 
 @import 'assets/css/style.min.css';
 
-.lang__item--ukr {
-  order: 0;
+.visually-hidden,
+input[type=checkbox].visually-hidden,
+input[type=radio].visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%)
 }
 
-.lang__item--ru {
-  order: 1;
+* {
+  overflow-wrap: normal!important;
 }
-
-.lang__item--eng {
-  order: 2;
-}
-

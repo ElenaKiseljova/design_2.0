@@ -8,9 +8,7 @@
   get_header(  );
 ?>
 
-<main class="page">
-    <div id="cursor"></div>
-
+<main class="main" data-scroll-container>
     <?php 
       // Check value exists.
       if( have_rows('content') ):
@@ -18,25 +16,25 @@
         // Loop through rows.
         while ( have_rows('content') ) : the_row();
 
-            // Case: Main layout.
-            if( get_row_layout() == 'main' ):
-                get_template_part( 'template-parts/front/main' );
+            // Case: team layout.
+            if( get_row_layout() == 'team' ):
+                get_template_part( 'templates/front/team' );
             
             // Case: Mission layout.
             elseif( get_row_layout() == 'mission' ):
-              get_template_part( 'template-parts/front/mission' );
+              get_template_part( 'templates/front/mission' );
             
             // Case: Works layout.
             elseif( get_row_layout() == 'works' ):
-              get_template_part( 'template-parts/front/works' );
+              get_template_part( 'templates/front/works' );
 
             // Case: Services layout.
             elseif( get_row_layout() == 'services' ):
-              get_template_part( 'template-parts/front/services' );
+              get_template_part( 'templates/front/services' );
 
-            // Case: Contacts layout.
-            elseif( get_row_layout() == 'contacts' ): 
-                get_template_part( 'template-parts/front/contacts' ); 
+            // Case: feedback layout.
+            elseif( get_row_layout() == 'feedback' ): 
+                get_template_part( 'templates/front/feedback' ); 
                       
             endif;
 

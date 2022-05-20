@@ -234,6 +234,11 @@ body.fixed {
           flex-direction: column;
 }
 
+.wrapper__top {
+  position: relative;
+  z-index: 20;
+}
+
 .container {
   max-width: 1530px;
   padding: 0 15px;
@@ -1224,7 +1229,7 @@ html.has-scroll-dragging {
 .hero__center {
   position: relative;
   z-index: 10;
-  padding-top: 280px;
+  padding-top: 365px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1352,7 +1357,10 @@ html.has-scroll-dragging {
 }
 
 .header {
-  position: relative;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
   z-index: 20;
 }
 
@@ -1433,10 +1441,27 @@ html.has-scroll-dragging {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-column-gap: 20px;
+     -moz-column-gap: 20px;
+          column-gap: 20px;
 }
 
-.lang__item:not(:last-child) {
-  margin-right: 20px;
+.lang__item--ukr {
+  -webkit-box-ordinal-group: 1;
+      -ms-flex-order: 0;
+          order: 0;
+}
+
+.lang__item--ru {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+}
+
+.lang__item--eng {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
 }
 
 .lang__link {
@@ -2610,7 +2635,7 @@ html.has-scroll-dragging {
 }
 
 .case {
-  padding-top: 150px;
+  padding-top: 235px;
   padding-bottom: 230px;
 }
 
@@ -2676,28 +2701,11 @@ html.has-scroll-dragging {
   margin-bottom: 130px;
 }
 
-.case__image {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 100%;
-  height: 600px;
-  background-color: #dddddd;
-  background-color: #a6acae;
-  padding: 0 50px;
-}
-
 .case__image img {
-  max-width: 680px;
   width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .case__cursor {
@@ -4993,16 +5001,6 @@ html.has-scroll-dragging {
 
   .mission__wrapp {
     height: 10vh;
-  }
-
-  .case__image {
-    height: 230px;
-  }
-
-  .case__image img {
-    -o-object-fit: contain;
-       object-fit: contain;
-    height: 100%;
   }
 
   .case__title {

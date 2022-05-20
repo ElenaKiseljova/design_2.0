@@ -1,1 +1,1 @@
-const anchorLinks=document.querySelectorAll("a[href^=\\#]:not([href$=\\#])");anchorLinks.forEach((e=>{let r=e.getAttribute("href"),t=document.querySelector(r);e.addEventListener("click",(e=>{e.preventDefault(),locoScroll.scrollTo(t)}))}));
+const anchorLinks=document.querySelectorAll("a[href*='#']");anchorLinks.forEach((o=>{const n=o.href.split("#"),e=window.location.origin+window.location.pathname;n[0]===e&&o.addEventListener("click",(o=>{o.preventDefault();const e=document.getElementById(n[1]);locoScroll.scrollTo(e)}))}));

@@ -23,7 +23,7 @@
 
     // <!-- Старт и отследживание скролла -->
     wp_enqueue_script('smooth-scroll-start-script', get_template_directory_uri() . '/assets/js/smooth-scroll-start.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('preloader-script', get_template_directory_uri() . '/assets/js/preloader.js', $deps = array('jquery'), $ver = null, $in_footer = true );
+    wp_enqueue_script('preloader-script', get_template_directory_uri() . '/assets/js/preloader.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('animation-image-script', get_template_directory_uri() . '/assets/js/animation-image.js', $deps = array('jquery'), $ver = null, $in_footer = true );
     wp_enqueue_script('magnetic-buttons-script', get_template_directory_uri() . '/assets/js/magnetic-buttons.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('hover-script', get_template_directory_uri() . '/assets/js/hover.js', $deps = array(), $ver = null, $in_footer = true );
@@ -80,11 +80,11 @@
       /* ==============================================
       ********  //Размеры картирок
       =============================================== */
-      add_image_size( 'design_video', 1194, 620, false);
-      // add_image_size( 'design_case', 835, 578, false);
-      add_image_size( 'design_gallery', 888, 500, false);
-      add_image_size( 'design_gallery_mobile', 290, 270, true);
-      add_image_size( 'design_case_content', 582, 450, false);
+      // add_image_size( 'design_video', 1194, 620, false);
+      // // add_image_size( 'design_case', 835, 578, false);
+      // add_image_size( 'design_gallery', 888, 500, false);
+      // add_image_size( 'design_gallery_mobile', 290, 270, true);
+      // add_image_size( 'design_case_content', 582, 450, false);
     }
   endif;
 
@@ -238,10 +238,9 @@
   ********  //Фильтр polylang для добавления 
   ********  //перевоыдов непубликуемым таксономиям
   =============================================== */
-
-  add_filter( 'pll_get_taxonomies', 'add_tax_to_pll', 10, 2 );
+  add_filter( 'pll_get_taxonomies', 'design_add_tax_to_pll', 10, 2 );
   
-  function add_tax_to_pll( $taxonomies, $is_settings ) {
+  function design_add_tax_to_pll( $taxonomies, $is_settings ) {
       if ( $is_settings ) {
         
       } else {
@@ -253,9 +252,20 @@
   }
 
   /* ==============================================
+  ********  //Вывод меню
+  =============================================== */
+  function design_show_menu($slug = '')
+  {
+    global $menu_name;
+
+    $menu_name = !empty($slug) ? $slug : 'top_menu';
+
+    get_template_part( 'templates/menu' );
+  }
+
+  /* ==============================================
   ********  //Отправка письма на мейл
   =============================================== */
-
   add_action('wp_ajax_design_sendmail', 'design_sendmail');
   add_action('wp_ajax_nopriv_design_sendmail', 'design_sendmail');
 
