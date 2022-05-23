@@ -19,7 +19,7 @@
                 $image = $item['image'] ?? [];
               ?>
               <div class="team__slide swiper-slide">
-                <div class="team__image image">
+                <div class="team__image image" data-displacement="<?= get_template_directory_uri(  ); ?>/assets/img/pattern.png">
                   <img
                     src="<?= $image['gray'] ?? ''; ?>"
                     alt="Berezovskyi Dmitryi"

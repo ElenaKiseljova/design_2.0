@@ -7,7 +7,6 @@
   // Styles theme
   function design_styles () {
     wp_enqueue_style('design-style', get_stylesheet_uri());
-    wp_enqueue_style('swiper-style', get_template_directory_uri() . '/assets/css/swiper.min.css');
   }
 
   // Scripts theme
@@ -27,7 +26,11 @@
     wp_enqueue_script('animation-image-script', get_template_directory_uri() . '/assets/js/animation-image.js', $deps = array('jquery'), $ver = null, $in_footer = true );
     wp_enqueue_script('magnetic-buttons-script', get_template_directory_uri() . '/assets/js/magnetic-buttons.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('hover-script', get_template_directory_uri() . '/assets/js/hover.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('parallax-script', get_template_directory_uri() . '/assets/js/parallax.js', $deps = array(), $ver = null, $in_footer = true );
+
+    if (is_front_page(  ) && !is_home(  )) {
+      wp_enqueue_script('parallax-script', get_template_directory_uri() . '/assets/js/parallax.js', $deps = array(), $ver = null, $in_footer = true );
+    }
+
     wp_enqueue_script('cursor-script', get_template_directory_uri() . '/assets/js/cursor.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('rolling-text-script', get_template_directory_uri() . '/assets/js/rolling-text.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('marquee-script', get_template_directory_uri() . '/assets/js/marquee.js', $deps = array(), $ver = null, $in_footer = true );
@@ -36,17 +39,32 @@
     wp_enqueue_script('hamburger-script', get_template_directory_uri() . '/assets/js/hamburger.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('achors-script', get_template_directory_uri() . '/assets/js/achors.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('input-border-script', get_template_directory_uri() . '/assets/js/input-border.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('form_2.0-script', get_template_directory_uri() . '/assets/js/form_2.0.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('form-script', get_template_directory_uri() . '/assets/js/form.js', $deps = array(), $ver = null, $in_footer = true );
 
     wp_enqueue_script('smooth-scroll-end-script', get_template_directory_uri() . '/assets/js/smooth-scroll-end.js', $deps = array(), $ver = null, $in_footer = true );
     
+    if (is_singular( 'cases' )) {
+      wp_enqueue_script('select-script', get_template_directory_uri() . '/assets/js/select.js', $deps = array(), $ver = null, $in_footer = true );
+    }
+
     // AJAX
     $args = array(
       'url' => admin_url('admin-ajax.php'),
       'nonce' => wp_create_nonce('design_nonce'),
     );
 
-    wp_localize_script( 'app-script', 'design_ajax', $args);   
+    $design_settings_names = get_option( 'design_settings_names' );
+
+    // reCAPTCHA v3
+    $site_key = $design_settings_names['recaptcha'] ?? false;
+
+    if ( $site_key && !empty($site_key) ) {
+      wp_enqueue_script('recaptcha-script', 'https://www.google.com/recaptcha/api.js?render=' . $site_key, $deps = array(), $ver = null, $in_footer = true );
+      
+      $args['site_key'] = $site_key;
+    }
+
+    wp_localize_script( 'form-script', 'design_ajax', $args);   
   }
 
   add_action( 'after_setup_theme', 'design_after_setup_theme_function' );
@@ -75,16 +93,14 @@
       =============================================== */
       register_nav_menu( 'top_menu', 'Навигация в шапке сайта' );
       register_nav_menu( 'bottom_menu', 'Навигация в подвале сайта' );
-      
-      
+
       /* ==============================================
       ********  //Размеры картирок
       =============================================== */
-      // add_image_size( 'design_video', 1194, 620, false);
-      // // add_image_size( 'design_case', 835, 578, false);
-      // add_image_size( 'design_gallery', 888, 500, false);
-      // add_image_size( 'design_gallery_mobile', 290, 270, true);
-      // add_image_size( 'design_case_content', 582, 450, false);
+      
+      add_image_size( 'design_gallery', 888, 500, false);
+      add_image_size( 'design_gallery_mobile', 290, 270, true);
+      add_image_size( 'design_case_content', 582, 450, false);
     }
   endif;
 
@@ -263,6 +279,69 @@
     get_template_part( 'templates/menu' );
   }
 
+  /**
+   * Создаем страницу настроек Design темы
+   */
+  add_action('admin_menu', 'design_add_theme_page');
+  function design_add_theme_page(){
+    add_options_page( 'Settings for Design 2.0 theme', 'Design 2.0', 'manage_options', 'design_slug', 'design_options_page_output' );
+  }
+
+  function design_options_page_output(){
+    ?>
+    <div class="wrap">
+      <h2><?php echo get_admin_page_title() ?></h2>
+
+      <form action="options.php" method="POST">
+        <?php
+          settings_fields( 'design_settings' );     // скрытые защитные поля
+          do_settings_sections( 'design_page' ); // секции с настройками (опциями). У нас она всего одна 'term_of_use'
+          submit_button();
+        ?>
+      </form>
+    </div>
+    <?php
+  }
+
+  /**
+   * Регистрируем настройки.
+   * Настройки будут храниться в массиве, а не одна настройка = одна опция.
+   */
+  add_action('admin_init', 'design_settings');
+  function design_settings(){
+    // параметры: $option_group, $option_name, $sanitize_callback
+    register_setting( 'design_settings', 'design_settings_names', 'sanitize_callback' );
+
+    // параметры: $id, $title, $callback, $page
+    add_settings_section( 'design_settings_section', 'General settings', '', 'design_page' );
+
+    // параметры: $id, $title, $callback, $page, $section, $args
+    add_settings_field('design_recaptcha', 'Ключ сайта reCaptcha v3', 'fill_design_recaptcha', 'design_page', 'design_settings_section' );
+  }
+
+  ## Заполняем опцию 1
+  function fill_design_recaptcha(){
+    $val = get_option('design_settings_names');
+    $val = $val ? $val['recaptcha'] : null;
+  
+    ?>
+      <input type="text" name="design_settings_names[recaptcha]" value="<?php echo esc_attr( $val ) ?>" />
+    <?php   
+  }
+
+  ## Очистка данных
+  function sanitize_callback( $options ){
+    // очищаем
+    foreach( $options as $name => & $val ){
+      if( $name == 'recaptcha' )
+        $val = strip_tags( $val );
+    }
+
+    //die(print_r( $options )); // Array ( [input] => aaaa [checkbox] => 1 )
+
+    return $options;
+  }
+
   /* ==============================================
   ********  //Отправка письма на мейл
   =============================================== */
@@ -270,70 +349,86 @@
   add_action('wp_ajax_nopriv_design_sendmail', 'design_sendmail');
 
   function design_sendmail () {
-    check_ajax_referer('design_nonce', 'security');
-
-    if (isset($_POST['email']) && empty($_POST['email'])) {
-      $response = [
-        'name' => 'email',
-        'error' => __('Укажите эл.  почту', 'design')
-      ];
+    try {
+      if($_POST['antibot'] == 1) {
+        check_ajax_referer('design_nonce', 'security');
+    
+        if (isset($_POST['email']) && empty($_POST['email'])) {
+          $response = [
+            'name' => 'email',
+            'error' => __('Укажите эл.  почту', 'design')
+          ];
+          
+          wp_send_json_error( $response );
       
-      wp_send_json_error( $response );
-  
-      wp_die();
-    }
-    
-    if (isset($_POST['name']) && empty($_POST['name'])) {   
-      $response = [
-        'name' => 'name',
-        'error' => __('Укажите имя', 'design')
-      ];
+          die();
+        }
+        
+        if (isset($_POST['name']) && empty($_POST['name'])) {   
+          $response = [
+            'name' => 'name',
+            'error' => __('Укажите имя', 'design')
+          ];
+          
+          wp_send_json_error( $response );
       
-      wp_send_json_error( $response );
+          die();
+        }
+        
+        $contactSubject = isset($_POST['subject']) ? esc_html( $_POST['subject'] ) : __('Контактная форма', 'design');
+        $contactName = isset($_POST['name']) ? ('<p>Имя - ' . esc_html( $_POST['name'] ) . '</p>') : '';
+        $contactEmail = isset($_POST['email']) ? ('<p>Эл. почта - ' . esc_html( $_POST['email'] ) . '</p>') : '';
+        $contactMessage = isset($_POST['message']) ? ('<p>Сообщение - ' . esc_html( $_POST['message'] ) . '</p>') : '';
+        
+        $contactMail = $contactName . $contactEmail . $contactMessage;
+    
+        $dev_mail = 'e.a.kiseljova@gmail.com'; 
+        // разработка
+        // $to = (isset($_POST['mailto']) && !empty($_POST['mailto'])) ? 
+        //   [esc_html( $_POST['mailto'] ), $dev_mail] : 
+        //   ((get_option('admin_email') !== $dev_mail) ? 
+        //   [get_option('admin_email'), $dev_mail] : 
+        //   get_option('admin_email'));
+        
+        // продакшн
+        $to = (isset($_POST['mailto']) && !empty($_POST['mailto'])) ? 
+          [esc_html( $_POST['mailto'] ), get_option('admin_email')] : get_option('admin_email');
+    
+        $site_name = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option('admin_email') . '>';
+    
+        // удалим фильтры, которые могут изменять заголовок $headers
+        remove_all_filters( 'wp_mail_from' );
+        remove_all_filters( 'wp_mail_from_name' );
+    
+        $headers = array(
+          $site_name,
+          'content-type: text/html',
+        );
+    
+        wp_mail( $to, $contactSubject, $contactMail, $headers );
+    
+        $response = [
+          'post' => $_POST,
+          'mail' => $contactMail,
+          'mailto' => $to,
+        ];
+    
+        wp_send_json_success($response);
+    
+        die();
+      } else {
+        wp_send_json_error([
+          'message' => __('Подтвердите, что Вы не робот', 'design')
+        ] );
+      }   
   
-      wp_die();
-    }
-    
-    $contactSubject = isset($_POST['subject']) ? esc_html( $_POST['subject'] ) : __('Контактная форма', 'design');
-    $contactName = isset($_POST['name']) ? ('<p>Имя - ' . esc_html( $_POST['name'] ) . '</p>') : '';
-    $contactEmail = isset($_POST['email']) ? ('<p>Эл. почта - ' . esc_html( $_POST['email'] ) . '</p>') : '';
-    $contactMessage = isset($_POST['message']) ? ('<p>Сообщение - ' . esc_html( $_POST['message'] ) . '</p>') : '';
-    
-    $contactMail = $contactName . $contactEmail . $contactMessage;
+      die();
+    } catch (\Throwable $th) {
+      wp_send_json_error( [
+        'message' => $th
+      ] );
 
-    $dev_mail = 'e.a.kiseljova@gmail.com'; 
-    // разработка
-    // $to = (isset($_POST['mailto']) && !empty($_POST['mailto'])) ? 
-    //   [esc_html( $_POST['mailto'] ), $dev_mail] : 
-    //   ((get_option('admin_email') !== $dev_mail) ? 
-    //   [get_option('admin_email'), $dev_mail] : 
-    //   get_option('admin_email'));
-    
-    // продакшн
-    $to = (isset($_POST['mailto']) && !empty($_POST['mailto'])) ? 
-      [esc_html( $_POST['mailto'] ), get_option('admin_email')] : get_option('admin_email');
-
-    $site_name = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option('admin_email') . '>';
-
-    // удалим фильтры, которые могут изменять заголовок $headers
-    remove_all_filters( 'wp_mail_from' );
-    remove_all_filters( 'wp_mail_from_name' );
-
-    $headers = array(
-      $site_name,
-      'content-type: text/html',
-    );
-
-    wp_mail( $to, $contactSubject, $contactMail, $headers );
-
-    $response = [
-      'post' => $_POST,
-      'mail' => $contactMail,
-      'mailto' => $to
-    ];
-
-    wp_send_json_success($response);
-
-    wp_die();
+      die();
+    }    
   }
 ?>

@@ -30,7 +30,7 @@
     <div
       class="hero__image"
       data-scroll
-      data-scroll-speed="-3"
+      data-scroll-speed="3"
       data-scroll-position="top"
     >
       <img src="<?= $image; ?>" alt="<?= get_bloginfo( 'name' ); ?>" />
@@ -40,7 +40,7 @@
     <div
       class="hero__image"
       data-scroll
-      data-scroll-speed="5"
+      data-scroll-speed="-3"
       data-scroll-position="top"
     >
       <div class="hero__circle"></div>

@@ -2,64 +2,55 @@
   get_header(  );
 ?>
 
-<main class="page">
-  <div id="cursor">
-  </div>
+  <main class="main" data-scroll-container>
+    <section class="case" data-scroll-section>
+      <div class="container">
+        <div class="case__inner">
+          <?php 
+            get_template_part( 'templates/case/aside'); 
+          ?>
+          <div class="case__right">
+            <?php    
+              get_template_part( 'templates/case/top' );   
 
-  <section class="stomatology_promo">
-      <div class="stomatology_promo__container _container">
-          <div class="stomatology_promo__body">                    
-              <?php get_template_part( 'template-parts/case/sidebar'); ?>
-              <?php get_template_part( 'template-parts/case/sidebar', 'mobile'); ?>
-              
-              <section class="stomatology_promo__stomatology _stomatology">
-                  <div class="_stomatology__container _sidebar_container">
-                      <div class="_stomatology__body">
+              get_template_part( 'templates/case/banner' );                       
 
-                          <div class="_stomatology__body_promo">    
-                              <?php    
-                                get_template_part( 'template-parts/case/top' );   
+              // Check value exists.
+              if( have_rows('content') ):
 
-                                get_template_part( 'template-parts/case/banner' );                       
+                // Loop through rows.
+                while ( have_rows('content') ) : the_row();
 
-                                // Check value exists.
-                                if( have_rows('content') ):
+                    // Case: Row Text layout.
+                    if( get_row_layout() == 'row_text' ):
+                        get_template_part( 'templates/case/row', 'text' );
 
-                                  // Loop through rows.
-                                  while ( have_rows('content') ) : the_row();
+                    // Case: Row Image layout.
+                    elseif( get_row_layout() == 'row_image' ):
+                      get_template_part( 'templates/case/row', 'image' );
+                              
+                    endif;
 
-                                      // Case: Row Text layout.
-                                      if( get_row_layout() == 'row_text' ):
-                                          get_template_part( 'template-parts/case/row', 'text' );
+                // End loop.
+                endwhile;
 
-                                      // Case: Row Image layout.
-                                      elseif( get_row_layout() == 'row_image' ):
-                                        get_template_part( 'template-parts/case/row', 'image' );
-                                                
-                                      endif;
-
-                                  // End loop.
-                                  endwhile;
-
-                                // No value.
-                                else :
-                                  // Do something...
-                                endif;
-                              ?>
-                          </div>
-
-                          <?php 
-                            get_template_part( 'template-parts/case/gallery' );                                  
-                          ?>
-
-                      </div>
-                  </div>
-              </section>
-
+              // No value.
+              else :
+                // Do something...
+              endif;
+            ?>
           </div>
+        </div>
       </div>
-  </section>
-</main>
+      <?php 
+        get_template_part( 'templates/case/gallery'); 
+      ?>
+    </section>
+
+    <?php 
+      get_template_part( 'templates/case/feedback'); 
+    ?>
+  </main>
 
 <?php 
   get_footer(  );

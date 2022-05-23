@@ -28,3 +28,7 @@ input[type=radio].visually-hidden {
 * {
   overflow-wrap: normal!important;
 }
+
+.grecaptcha-badge {
+  display: none!important;
+}

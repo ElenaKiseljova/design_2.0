@@ -1,4 +1,4 @@
-<header class="header white">
+<header class="header <?= (is_front_page(  ) && !is_home(  )) ? 'white' : ''; ?>">
   <div class="header__inner">
     <?php 
       get_template_part( 'templates/logo' );
