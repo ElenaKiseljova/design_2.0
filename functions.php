@@ -408,9 +408,9 @@
         wp_mail( $to, $contactSubject, $contactMail, $headers );
     
         $response = [
-          'post' => $_POST,
-          'mail' => $contactMail,
-          'mailto' => $to,
+          // 'post' => $_POST,
+          // 'mail' => $contactMail,
+          // 'mailto' => $to,
         ];
     
         wp_send_json_success($response);
