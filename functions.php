@@ -37,7 +37,7 @@
     wp_enqueue_script('calculate-height-script', get_template_directory_uri() . '/assets/js/calculate-height.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('slider-script', get_template_directory_uri() . '/assets/js/slider.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('hamburger-script', get_template_directory_uri() . '/assets/js/hamburger.js', $deps = array(), $ver = null, $in_footer = true );
-    wp_enqueue_script('achors-script', get_template_directory_uri() . '/assets/js/achors.js', $deps = array(), $ver = null, $in_footer = true );
+    wp_enqueue_script('anchors-script', get_template_directory_uri() . '/assets/js/anchors.js', $deps = array(), $ver = null, $in_footer = false );
     wp_enqueue_script('input-border-script', get_template_directory_uri() . '/assets/js/input-border.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('form-script', get_template_directory_uri() . '/assets/js/form.js', $deps = array(), $ver = null, $in_footer = true );
 
