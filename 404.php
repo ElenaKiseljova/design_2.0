@@ -2,40 +2,21 @@
   get_header( );
 ?>
 
-<main class="page">
-  <section class="error_page">
-      <div  id="cursor"></div>
-      <div class="error_page__container _container">
-          <div class="error_page__body">
-
-              <div class="error_page__code">
-                      404
-              </div>
-              <div class="error_page__title">
-                  <div class="error_page__title_title">
-                      <?php
-                        _e( 'Такой страницы не существует', 'design' );
-                      ?>
-                  </div>
-                  <div class="error_page__title_subtitle">                            
-                      <?php
-                        _e( 'Как и плохого дизайна от нашей компании', 'design' );
-                      ?>
-                  </div>
-
-                  <div class="error_page__title_button a">
-                      <div class="border_bottom">
-                          <a href="<?= get_bloginfo( 'url' ); ?>" class="error_page__title_button_3d">                                    
-                              <?php
-                                _e( 'На главную', 'design' );
-                              ?>
-                          </a>
-                      </div>
-                  </div>
-
-              </div>
-          </div>
+<main class="main" data-scroll-container>
+  <section class="error" data-scroll-section>
+    <div class="container">
+      <div class="error__inner links">
+        <h1 class="error__number">404</h1>
+        <div class="error__descr">
+          <h2><?= __( 'Page not fount', 'design' ); ?></h2>
+          <p><?= __( 'Please, go back and try something else', 'design' ); ?></p>
+          <a href="<?= get_bloginfo( 'url' ); ?>" class="error__link links__hover a">
+            <span class="links__front"><?= __( 'Back', 'design' ); ?></span>
+            <span class="links__back"><?= __( 'Back', 'design' ); ?></span>
+          </a>
+        </div>
       </div>
+    </div>
   </section>
 </main>
 

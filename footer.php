@@ -1,6 +1,6 @@
 <?php 
   $frontpage_id = get_option( 'page_on_front' );
-  $contacts = get_field( 'contacts',  $frontpage_id);
+  $contacts = get_field( 'contacts',  $frontpage_id) ?? [];
 ?>
 
       <footer class="footer" data-scroll-section>
@@ -13,7 +13,7 @@
                 </a>
 
                 <address>
-                  <?= $contacts['address']; ?>
+                  <?= $contacts['address'] ?? ''; ?>
                 </address>
 
                 <div class="footer__social social links">
@@ -23,9 +23,9 @@
                         foreach ($contacts['social'] as $social) {
                           ?>                          
                             <li class="social__item">
-                              <a href="<?= $social['link']; ?>" class="social__link links__hover a">
-                                <span class="links__front"><?= $social['text']; ?></span>
-                                <span class="links__back"><?= $social['text']; ?></span>
+                              <a href="<?= $social['link'] ?? ''; ?>" class="social__link links__hover a">
+                                <span class="links__front"><?= $social['text'] ?? ''; ?></span>
+                                <span class="links__back"><?= $social['text'] ?? ''; ?></span>
                               </a>
                             </li>
                           <?php
@@ -50,16 +50,16 @@
                     </li>
                     <li class="contacts__item">
                       <a
-                        href="mailto:<?= $contacts['email']; ?>"
+                        href="mailto:<?= $contacts['email'] ?? ''; ?>"
                         class="contacts__link links__hover a"
                       >
-                        <span class="links__front"><?= $contacts['email']; ?></span>
-                        <span class="links__back"><?= $contacts['email']; ?></span>
+                        <span class="links__front"><?= $contacts['email'] ?? ''; ?></span>
+                        <span class="links__back"><?= $contacts['email'] ?? ''; ?></span>
                       </a>
                     </li>
                   </ul>
                   <div class="footer__schedule">
-                    <p><?= $contacts['worktime']; ?> <span>GMT+3</span></p>
+                    <p><?= $contacts['worktime'] ?? ''; ?> <span>GMT+3</span></p>
                   </div>
                 </div>
               </div>

@@ -38,7 +38,11 @@
     wp_enqueue_script('slider-script', get_template_directory_uri() . '/assets/js/slider.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('hamburger-script', get_template_directory_uri() . '/assets/js/hamburger.js', $deps = array(), $ver = null, $in_footer = true );
     wp_enqueue_script('anchors-script', get_template_directory_uri() . '/assets/js/anchors.js', $deps = array(), $ver = null, $in_footer = false );
-    wp_enqueue_script('input-border-script', get_template_directory_uri() . '/assets/js/input-border.js', $deps = array(), $ver = null, $in_footer = true );
+    
+    if ( is_front_page(  ) || is_singular( 'cases' ) ) {
+      wp_enqueue_script('input-border-script', get_template_directory_uri() . '/assets/js/input-border.js', $deps = array(), $ver = null, $in_footer = true );
+    }
+
     wp_enqueue_script('form-script', get_template_directory_uri() . '/assets/js/form.js', $deps = array(), $ver = null, $in_footer = true );
 
     wp_enqueue_script('smooth-scroll-end-script', get_template_directory_uri() . '/assets/js/smooth-scroll-end.js', $deps = array(), $ver = null, $in_footer = true );

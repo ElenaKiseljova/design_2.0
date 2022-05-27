@@ -1,19 +1,23 @@
+<?php 
+  $frontpage_id = get_option( 'page_on_front' );
+  $preloader = get_field( 'preloader',  $frontpage_id) ?? [];
+?>
+
 <div class="loading-container">
   <div class="loading-screen">
     <div class="rounded-div-wrap top">
       <div class="rounded-div"></div>
     </div>
     <div class="loading-words">
-      <div class="loading-words-wrap">
-        <h2 class="home-active home-active-first">Hello</h2>
-        <h2 class="home-active">Hola</h2>
-        <h2 class="home-active">Привіт</h2>
-        <h2 class="home-active">Ciao</h2>
-        <h2 class="home-active">Olá</h2>
-        <h2 class="home-active">Bonjour</h2>
-        <h2 class="home-active">Witam</h2>
-        <h2 class="home-active-last">Sveiki</h2>
-      </div>
+      <?php if ( !empty($preloader) && is_array($preloader) && !is_wp_error( $preloader ) ) : ?>
+        <div class="loading-words-wrap">
+          <?php foreach ($preloader as $key => $hello) : ?>
+            <h2 class="<?= ($key === 0) ? 'home-active home-active-first' : (($hello === end($preloader)) ? 'home-active-last' : 'home-active');?>">
+              <?= $hello['text'] ?? ''; ?>
+            </h2>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>      
     </div>
     <div class="rounded-div-wrap bottom">
       <div class="rounded-div"></div>
