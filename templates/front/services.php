@@ -2,7 +2,9 @@
   $title = get_sub_field('title') ?? '';
   $description = get_sub_field('description') ?? '';
 
-  $current_service = get_sub_field('current');
+  $current_service = get_sub_field('current') ?? null; 
+
+  $services = get_sub_field('list') ?? [];
 ?>
 
 <section class="services" id="services" data-scroll-section>
@@ -13,22 +15,18 @@
     <div class="services__left">
       <h2 class="services__title title"><?= $title; ?></h2>
 
-      <?php 
-        $current_service_object = get_term_by( 'id', $current_service, 'cases_services' );        
-      ?>
-
-      <?php if ($current_service_object && is_a( $current_service_object, WP_Term ) && !is_wp_error( $current_service_object )) : ?>
+      <?php if ($current_service && is_a( $current_service, WP_Term ) && !is_wp_error( $current_service )) : ?>
         <?php 
-          $service_image_gray = get_field('image_gray', $current_service_object) ?? '';
-          $service_image_color = get_field('image_color', $current_service_object) ?? '';  
+          $service_image_gray = get_field('image_gray', $current_service) ?? '';
+          $service_image_color = get_field('image_color', $current_service) ?? '';  
         ?>
 
         <div class="services__item">
           <div class="services__image image" data-displacement="<?= get_template_directory_uri(  ); ?>/assets/img/pattern.png">
-            <img src="<?= $service_image_gray; ?>" alt="<?= $current_service_object->name ?? ''; ?>" />
-            <img src="<?= $service_image_color; ?>" alt="<?= $current_service_object->name ?? ''; ?>" />
+            <img src="<?= $service_image_gray; ?>" alt="<?= $current_service->name ?? ''; ?>" />
+            <img src="<?= $service_image_color; ?>" alt="<?= $current_service->name ?? ''; ?>" />
           </div>
-          <span><?= $current_service_object->name ?? ''; ?></span>
+          <span><?= $current_service->name ?? ''; ?></span>
         </div>
       <?php endif; ?>
       
@@ -51,20 +49,6 @@
 
       <div class="services__point"></div>
       <div class="services__cursor cursor">
-        <?php 
-          $exclude = [];
-          if ($current_service) {
-            $exclude[] = $current_service;
-          }
-
-          $services = get_terms( [
-            'taxonomy' => 'cases_services',
-            'hide_empty' => false,
-            'exclude' => $exclude,
-          ] );                      
-
-          $services = $services ?? [];
-        ?>
         <?php if ( $services && !empty($services) && is_array($services) && !is_wp_error( $services ) ) : ?>
           <div class="services__slider swiper">
             <div class="services__wrapper swiper-wrapper">

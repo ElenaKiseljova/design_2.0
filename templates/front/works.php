@@ -81,7 +81,7 @@
       <?php 
         if ($button && !empty($button['text']) && !empty($button['link'])) {
           ?>
-            <a href="<?= $button['link'] ?? ''; ?>" class="works__more a links__hover">
+            <a href="<?= $button['link'] ?? ''; ?>" class="works__more a links__hover" target="_blank">
               <span class="links__front"><?= $button['text'] ?? ''; ?></span>
               <span class="links__back"><?= $button['text'] ?? ''; ?></span>
             </a>

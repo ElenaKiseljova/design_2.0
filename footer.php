@@ -8,7 +8,7 @@
           <div class="footer__inner">
             <div class="footer__top">
               <div class="footer__left">
-                <a href="https://webnauts.pro/" class="footer__logo a">
+                <a href="https://webnauts.pro/" class="footer__logo a" target="_blank">
                   WEBNAUTS.PRO
                 </a>
 
@@ -23,7 +23,7 @@
                         foreach ($contacts['social'] as $social) {
                           ?>                          
                             <li class="social__item">
-                              <a href="<?= $social['link'] ?? ''; ?>" class="social__link links__hover a">
+                              <a href="<?= $social['link'] ?? ''; ?>" class="social__link links__hover a" target="_blank">
                                 <span class="links__front"><?= $social['text'] ?? ''; ?></span>
                                 <span class="links__back"><?= $social['text'] ?? ''; ?></span>
                               </a>
@@ -70,7 +70,7 @@
             <div class="footer__bottom">
               <span>(c) <?= date('Y'); ?></span>
               <p>
-                <?= __( 'made by', 'design' ); ?> <a href="https://webnauts.pro/" class="a">Webnauts.pro</a>
+                <?= __( 'made by', 'design' ); ?> <a href="https://webnauts.pro/" class="a" target="_blank">Webnauts.pro</a>
               </p>
             </div>
           </div>
