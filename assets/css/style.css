@@ -2522,6 +2522,9 @@ html.has-scroll-dragging {
   border-bottom: 2px solid #212121;
   color: #212121;
   text-decoration: none;
+  -webkit-transition: border-bottom 0.25s ease;
+  -o-transition: border-bottom 0.25s ease;
+  transition: border-bottom 0.25s ease;
   font-style: normal;
   font-weight: 500;
   font-size: 40px;
@@ -3083,8 +3086,8 @@ html.has-scroll-dragging {
 
 .case__category {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
+      -ms-flex: 1 1 50%;
+          flex: 1 1 50%;
 }
 
 .case__category span {
@@ -3156,6 +3159,7 @@ html.has-scroll-dragging {
 }
 
 .case__options {
+  margin-left: max(15px, (100% - 1530px) / 2 + 300px);
   max-width: 960px;
   width: 100%;
   display: -webkit-box;
@@ -4365,7 +4369,8 @@ html.has-scroll-dragging {
 }
 
 @media (max-width: 1500px) {
-  .case__cursor {
+  .case__cursor,
+  .case__options {
     margin-left: 345px;
   }
 }
@@ -4822,12 +4827,6 @@ html.has-scroll-dragging {
     margin-bottom: 100px;
   }
 
-  .case__category {
-    -webkit-box-flex: unset;
-        -ms-flex: unset;
-            flex: unset;
-  }
-
   .case__categories {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
@@ -4838,7 +4837,8 @@ html.has-scroll-dragging {
     display: block;
   }
 
-  .case__cursor {
+  .case__cursor,
+  .case__options {
     margin-left: 15px;
   }
 
@@ -5216,6 +5216,11 @@ html.has-scroll-dragging {
   }
 
   .feedback__btn:hover {
+    color: #ea2f2f;
+    border-color: #ea2f2f;
+  }
+
+  .feedback.white:hover .feedback__link:hover {
     color: #ea2f2f;
     border-color: #ea2f2f;
   }

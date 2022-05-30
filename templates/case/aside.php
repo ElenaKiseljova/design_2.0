@@ -23,7 +23,7 @@
                 
                 ?>  
                   <li class="select__list-item <?= (get_the_ID() === $current_case_id) ? 'is-active' : ''; ?>">
-                    <a href="<?= get_permalink( ); ?>" class="links__hover">
+                    <a href="<?= get_permalink( ); ?>" class="links__hover a">
                       <span class="links__front"><?= get_the_title(  ); ?></span>
                       <span class="links__back"><?= get_the_title(  ); ?></span>
                     </a>

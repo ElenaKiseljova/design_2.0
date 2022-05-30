@@ -13,9 +13,9 @@
     <div id="cursor" data-video="<?= __( 'Play', 'design' ); ?>" data-slider="<?= __( 'Drag', 'design' ); ?>"></div>
 
     <?php 
-      get_template_part( 'templates/preloader' );
-
       if ( is_front_page(  ) && !is_home(  ) ) {
+        get_template_part( 'templates/preloader' );
+        
         get_template_part( 'templates/front/marquee', 'images' );
       }      
     ?>    

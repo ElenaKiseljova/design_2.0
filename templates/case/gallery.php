@@ -36,10 +36,11 @@
           }
         ?>       
       </div>
-    </div>
-    <div class="case__options">
+    </div>    
+  </div>
+  <div class="case__options">
       <div class="case__btns">
-        <button class="case__btn case__btn--prev">
+        <button class="case__btn case__btn--prev a">
           <svg width="50" height="50">
             <use xlink:href="<?= get_template_directory_uri(  ); ?>/assets/img/sprite.svg#arrow"></use>
           </svg>
@@ -55,5 +56,4 @@
       </div>
       <div class="case__count"></div>
     </div>
-  </div>
 <?php endif; ?>                            
