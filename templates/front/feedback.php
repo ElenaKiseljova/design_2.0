@@ -1,12 +1,16 @@
 <?php 
   $title = get_sub_field('title') ?? '';
 
-  $image = get_sub_field('image') ?? '';
+  $seo = get_sub_field('seo') ?? [];
   $text_left = get_sub_field('text_left') ?? '';
   $telegram = get_sub_field('telegram') ?? '';
 
   $text_right = get_sub_field('text_right') ?? '';
   $mailto = get_sub_field('mailto') ?? '';
+
+  $image = $seo['image'] ?? '';
+  $name = $seo['name'] ?? '';
+  $position = $seo['position'] ?? '';
 ?>
 
 <section class="feedback <?= is_singular( 'cases' ) ? 'white' : ''; ?>" id="feedback" data-scroll-section>
@@ -19,6 +23,11 @@
           <?php if ( $image && !empty($image) ) : ?>
             <img src="<?= $image; ?>" alt="<?= get_bloginfo( 'name' ); ?>" />
           <?php endif; ?>          
+        </div>
+
+        <div class="feedback__position">
+          <h3><?= $name; ?></h3>
+          <p><?= $position; ?></p>
         </div>
 
         <div class="feedback__info links">

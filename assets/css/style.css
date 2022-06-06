@@ -1896,9 +1896,11 @@ html.has-scroll-dragging {
 }
 
 .links__front {
-  -webkit-transition: 0.5s ease;
-  -o-transition: 0.5s ease;
-  transition: 0.5s ease;
+  -webkit-transition: opacity 1s ease, -webkit-transform 0.5s ease;
+  transition: opacity 1s ease, -webkit-transform 0.5s ease;
+  -o-transition: transform 0.5s ease, opacity 1s ease;
+  transition: transform 0.5s ease, opacity 1s ease;
+  transition: transform 0.5s ease, opacity 1s ease, -webkit-transform 0.5s ease;
 }
 
 .links__back {
@@ -2485,7 +2487,7 @@ html.has-scroll-dragging {
 }
 
 .feedback__title {
-  margin-bottom: 92px;
+  margin-bottom: 45px;
 }
 
 .feedback__image {
@@ -2493,7 +2495,7 @@ html.has-scroll-dragging {
   height: 157px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
 }
 
 .feedback__image img {
@@ -2507,6 +2509,28 @@ html.has-scroll-dragging {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.feedback__position {
+  margin-bottom: 88px;
+}
+
+.feedback__position h3 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  color: #212121;
+}
+
+.feedback__position p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  color: #a9a9a9;
 }
 
 .feedback__head {
@@ -2604,6 +2628,14 @@ html.has-scroll-dragging {
 
 .feedback.white {
   background-color: #a6acae;
+}
+
+.feedback.white .feedback__position h3 {
+  color: #fff;
+}
+
+.feedback.white .feedback__position p {
+  color: #d4dadd;
 }
 
 .feedback.white > .form__input::-webkit-input-placeholder {
@@ -2729,7 +2761,7 @@ html.has-scroll-dragging {
 
 .form__label textarea {
   cursor: pointer;
-  min-height: 128px;
+  min-height: 202px;
 }
 
 .form__label.error1 .form__error {
@@ -3429,10 +3461,13 @@ html.has-scroll-dragging {
   margin-top: 10px;
 }
 
-.content p + h3,
 .content p + ul,
 .content p + ol {
   margin-top: 30px;
+}
+
+.content p + h3 {
+  margin-top: 50px;
 }
 
 .content h3 + p,
@@ -4026,16 +4061,12 @@ html.has-scroll-dragging {
     user-select: none;
     z-index: 1000;
     position: fixed;
-    top: -1000px;
-    left: 0;
+    top: -500px;
+    left: -500px;
     pointer-events: none;
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    will-change: transform;
-    -webkit-transform: translate(var(--x), var(--y));
-        -ms-transform: translate(var(--x), var(--y));
-            transform: translate(var(--x), var(--y));
     -webkit-transition: -webkit-transform 100ms ease 0s;
     transition: -webkit-transform 100ms ease 0s;
     -o-transition: transform 100ms ease 0s;
@@ -4069,9 +4100,9 @@ html.has-scroll-dragging {
     width: 120px;
     height: 120px;
     will-change: transform;
-    -webkit-transform: translate(var(--x), var(--y)) scale(0.4);
-        -ms-transform: translate(var(--x), var(--y)) scale(0.4);
-            transform: translate(var(--x), var(--y)) scale(0.4);
+    -webkit-transform: scale(0.4);
+        -ms-transform: scale(0.4);
+            transform: scale(0.4);
     -webkit-transition: -webkit-transform 100ms ease 0s;
     transition: -webkit-transform 100ms ease 0s;
     -o-transition: transform 100ms ease 0s;
@@ -4092,8 +4123,8 @@ html.has-scroll-dragging {
     -webkit-transform: scale(1);
         -ms-transform: scale(1);
             transform: scale(1);
-    transition: -webkit-transform 600ms ease 0s;
     -webkit-transition: -webkit-transform 600ms ease 0s;
+    transition: -webkit-transform 600ms ease 0s;
     -o-transition: transform 600ms ease 0s;
     transition: transform 600ms ease 0s;
     transition: transform 600ms ease 0s, -webkit-transform 600ms ease 0s;
@@ -4109,9 +4140,9 @@ html.has-scroll-dragging {
     width: 120px;
     height: 120px;
     will-change: transform;
-    -webkit-transform: translate(var(--x), var(--y)) scale(0.4);
-    -ms-transform: translate(var(--x), var(--y)) scale(0.4);
-    transform: translate(var(--x), var(--y)) scale(0.4);
+    -webkit-transform: scale(0.4);
+        -ms-transform: scale(0.4);
+            transform: scale(0.4);
     -webkit-transition: -webkit-transform 100ms ease 0s;
     transition: -webkit-transform 100ms ease 0s;
     -o-transition: transform 100ms ease 0s;
@@ -4148,9 +4179,9 @@ html.has-scroll-dragging {
     width: 120px;
     height: 120px;
     will-change: transform;
-    -webkit-transform: translate(var(--x), var(--y)) scale(0.1);
-    -ms-transform: translate(var(--x), var(--y)) scale(0.1);
-    transform: translate(var(--x), var(--y)) scale(0.1);
+    -webkit-transform: scale(0.25);
+        -ms-transform: scale(0.25);
+            transform: scale(0.25);
     -webkit-transition: -webkit-transform 100ms ease 0s;
     transition: -webkit-transform 100ms ease 0s;
     -o-transition: transform 100ms ease 0s;
@@ -4185,10 +4216,10 @@ html.has-scroll-dragging {
     position: fixed;
     width: 120px;
     height: 120px;
-    will-change: transform;
-    -webkit-transform: translate(var(--x), var(--y)) scale(0.1);
-        -ms-transform: translate(var(--x), var(--y)) scale(0.1);
-            transform: translate(var(--x), var(--y)) scale(0.1);
+    /* will-change: transform; */
+    -webkit-transform: scale(0.4);
+        -ms-transform: scale(0.4);
+            transform: scale(0.4);
     -webkit-transition: -webkit-transform 100ms ease 0s;
     transition: -webkit-transform 100ms ease 0s;
     -o-transition: transform 100ms ease 0s;
@@ -4204,9 +4235,9 @@ html.has-scroll-dragging {
     background-color: #ea2f2f;
     border-radius: 50%;
     will-change: transform;
-    -webkit-transform: scale(var(--scale));
-    -ms-transform: scale(var(--scale));
-    transform: scale(var(--scale));
+    -webkit-transform: scale(0.25);
+        -ms-transform: scale(0.25);
+            transform: scale(0.25);
     -webkit-transition: -webkit-transform 600ms ease 0s;
     transition: -webkit-transform 600ms ease 0s;
     -o-transition: transform 600ms ease 0s;
@@ -4223,10 +4254,6 @@ html.has-scroll-dragging {
     border-radius: 50%;
     width: 120px;
     height: 120px;
-    will-change: transform;
-    -webkit-transform: translate(var(--x), var(--y));
-        -ms-transform: translate(var(--x), var(--y));
-            transform: translate(var(--x), var(--y));
     -webkit-transition: -webkit-transform 100ms ease 0s;
     transition: -webkit-transform 100ms ease 0s;
     -o-transition: transform 100ms ease 0s;
@@ -4278,9 +4305,9 @@ html.has-scroll-dragging {
     width: 120px;
     height: 120px;
     will-change: transform;
-    -webkit-transform: translate(var(--x), var(--y)) scale(0.1);
-        -ms-transform: translate(var(--x), var(--y)) scale(0.1);
-            transform: translate(var(--x), var(--y)) scale(0.1);
+    -webkit-transform: scale(0.1);
+        -ms-transform: scale(0.1);
+            transform: scale(0.1);
     -webkit-transition: -webkit-transform 100ms ease 0s;
     transition: -webkit-transform 100ms ease 0s;
     -o-transition: transform 100ms ease 0s;
@@ -4771,6 +4798,10 @@ html.has-scroll-dragging {
     padding-bottom: 150px;
   }
 
+  .feedback__position {
+    margin-bottom: 50px;
+  }
+
   .feedback__descr {
     color: #a9a9a9;
     margin-bottom: 30px;
@@ -5095,7 +5126,7 @@ html.has-scroll-dragging {
   }
 
   .content p + h3 {
-    margin-top: 13.3333333333vw;
+    margin-top: 8vw;
   }
 
   .content h3 + p {
@@ -5186,8 +5217,8 @@ html.has-scroll-dragging {
   }
 
   .links__hover:hover .links__front {
-    -webkit-transform: rotateX(90deg) translate3d(0, 0, 0.6em);
-            transform: rotateX(90deg) translate3d(0, 0, 0.6em);
+    -webkit-transform: rotateX(90deg) translate3d(0, 0, 0.5em);
+            transform: rotateX(90deg) translate3d(0, 0, 0.5em);
   }
 
   .links__hover:hover .links__back {
