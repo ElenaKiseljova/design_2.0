@@ -32,3 +32,26 @@ input[type=radio].visually-hidden {
 .grecaptcha-badge {
   display: none!important;
 }
+
+.hero__text-ua {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  text-transform: none!important;
+}
+
+.hero__text-ua::before {
+  content: '';
+
+  width: 40px;
+  height: 40px;
+
+  margin-right: 10px;
+
+  background-image: url('./assets/img/ua.svg');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}

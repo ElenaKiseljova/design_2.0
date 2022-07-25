@@ -24,6 +24,9 @@
       <p>
         <?= $text; ?>
       </p>
+      <p class="hero__text-ua">
+        From Ukraine
+      </p>
     </div>
   </div>
   <div class="hero__container">

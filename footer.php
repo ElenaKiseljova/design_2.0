@@ -8,9 +8,16 @@
           <div class="footer__inner">
             <div class="footer__top">
               <div class="footer__left">
-                <a href="https://webnauts.pro/" class="footer__logo a" target="_blank">
-                  WEBNAUTS.PRO
-                </a>
+
+                <?php if (function_exists( 'pll_current_language' ) && pll_current_language() === 'en') : ?>
+                  <a href="https://wnauts.com/" class="footer__logo a" target="_blank">
+                    wnauts.com
+                  </a>
+                <?php else : ?>
+                  <a href="https://webnauts.pro/" class="footer__logo a" target="_blank">
+                    WEBNAUTS.PRO
+                  </a>
+                <?php endif; ?>                
 
                 <address>
                   <?= $contacts['address'] ?? ''; ?>
